@@ -8,6 +8,7 @@
 *.so
 *.dylib
 
+
 # Test binary, built with `go test -c`
 *.test
 
@@ -19,4 +20,8 @@
 
 # Go workspace file
 go.work
+
+# Terraform
 .terraform
+terraform.tfstate
+terraform.tfstate.backup

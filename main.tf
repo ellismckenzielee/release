@@ -42,7 +42,7 @@ resource "aws_iam_role" "release_lambda_role" {
 }
 
 resource "aws_lambda_function" "release_lambda" {
-  filename      = "release.zip"
+  filename      = "src/release/release.zip"
   function_name = "release"
   handler       = "release"
   role = aws_iam_role.release_lambda_role.arn
@@ -69,6 +69,12 @@ resource "aws_api_gateway_integration" "release_get_integration" {
     integration_http_method = "POST"
     type = "AWS_PROXY"
     uri = aws_lambda_function.release_lambda.invoke_arn
+}
 
-  
+resource "aws_lambda_permission" "release_lambda_permission" {
+  statement_id  = "AllowReleaseInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.release_lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn = "${aws_api_gateway_rest_api.release_api.execution_arn}/*"
 }
