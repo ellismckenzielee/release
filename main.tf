@@ -11,7 +11,7 @@ resource "aws_api_gateway_rest_api" "release_api" {
   name          = "release-api"
 }
 
-resource "aws_dynamodb_table" "reveal_table" {
+resource "aws_dynamodb_table" "release_table" {
   name           = "release-table"
   billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "ClientId"
@@ -42,10 +42,11 @@ resource "aws_iam_role" "release_lambda_role" {
 }
 
 resource "aws_lambda_function" "release_lambda" {
-  filename      = "src/release/release.zip"
-  function_name = "release"
-  handler       = "release"
+  filename      = "src/getFlags/getFlags.zip"
+  function_name = "getFlags"
+  handler       = "getFlags"
   role = aws_iam_role.release_lambda_role.arn
+  source_code_hash = filebase64sha256("src/getFlags/getFlags.zip")
   runtime = "go1.x"
 }
 
