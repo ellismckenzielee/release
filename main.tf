@@ -48,6 +48,11 @@ resource "aws_lambda_function" "release_lambda" {
   role = aws_iam_role.release_lambda_role.arn
   source_code_hash = filebase64sha256("src/getFlags/getFlags.zip")
   runtime = "go1.x"
+  environment {
+    variables = {
+      RELEASE_TABLE_ARN = aws_dynamodb_table.release_table.arn
+    }
+  }
 }
 
 resource "aws_api_gateway_resource" "release_api_resource" {
