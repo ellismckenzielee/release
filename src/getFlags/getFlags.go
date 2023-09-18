@@ -1,24 +1,20 @@
 package main
 
 import (
-        "context"
-        "fmt"
-        "github.com/aws/aws-lambda-go/lambda"
-        "github.com/aws/aws-sdk-go-v2/aws"
-        "github.com/aws/aws-sdk-go-v2/config"
-        "github.com/aws/aws-sdk-go-v2/service/dynamodb"
-        "github.com/aws/aws-sdk-go-v2/feature/dynamodb/expression"
+	"context"
+	"fmt"
 
+	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/expression"
+	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 )
 
 type Response struct {
         statusCode int
 }
 
-type Query struct {
-    TableName string
-    KeyConditionExpression string 
-}
 
 func HandleRequest(ctx context.Context ) (Response, error) {
         cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("eu-west-2"))
