@@ -26,7 +26,7 @@ resource "aws_dynamodb_table" "release_table" {
 data "aws_iam_policy_document" "get_flags_policy" {
   statement {
     effect    = "Allow"
-    actions   = ["dynamodb:ListTables*"]
+    actions   = ["dynamodb:Query*"]
     resources = ["*"]
   }
 }
